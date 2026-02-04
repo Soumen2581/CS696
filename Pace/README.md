@@ -1,2 +1,2 @@
-This is a README file for Lab 2.
+This README was updated in the add-readme feature branch for Lab 3.
 

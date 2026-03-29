@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   test:
@@ -30,7 +31,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: ./Pace
         run: npm install
 
       - name: Run tests
+        working-directory: ./Pace
         run: npm test
+        env:
+          MONGODB_URI: mongodb://localhost:27017/testdb

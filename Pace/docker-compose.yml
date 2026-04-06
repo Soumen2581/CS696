@@ -1,0 +1,75 @@
+version: "3.9"
+
+services:
+  loki:
+    image: grafana/loki:latest
+    container_name: pace-loki
+    user: "0:0"
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-data:/loki
+    restart: unless-stopped
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pace-auth-api
+    env_file:
+      - .env
+    environment:
+      MONGODB_URL: mongodb://mongo:27017/user-auth
+      NODE_ENV: development
+    ports:
+      - "8000:8000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: pace-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "mongodb://localhost:27017/admin",
+          "--eval",
+          "db.runCommand({ ping: 1 }).ok"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: pace-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: pace_user
+      GF_SECURITY_ADMIN_PASSWORD: pace_pass
+    depends_on:
+      mongo:
+        condition: service_healthy
+      loki:
+        condition: service_started
+    restart: unless-stopped
+
+
+
+volumes:
+  mongo_data:

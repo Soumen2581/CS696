@@ -1,72 +1,37 @@
-####################################
-# OS
-####################################
-.DS_Store
-Thumbs.db
-
-####################################
-# Node / JavaScript
-####################################
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-####################################
-# Environment files
-####################################
-.env
-.env.*
-!.env.example
-
-####################################
-# IDEs / Editors
-####################################
-# IntelliJ / WebStorm
-.idea/
-*.iml
+### IntelliJ IDEA ###
 out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.kotlin
 
-# VS Code
-.vscode/
-
-# Eclipse
-.project
-.classpath
-.settings/
+### Eclipse ###
 .apt_generated
+.classpath
 .factorypath
+.project
+.settings
 .springBeans
 .sts4-cache
 bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-# NetBeans
+### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-####################################
-# Build / Coverage
-####################################
-dist/
-build/
-coverage/
+### VS Code ###
+.vscode/
 
-####################################
-# Docker (local runtime only)
-####################################
-# Docker volumes / runtime data
-Pace/loki/
-Pace/loki-data/
+### Mac OS ###
+.DS_Store
 
-# Docker override files (safe to ignore)
-docker-compose.override.yml
+node_modules
+.env
+.DS_Store
 
-####################################
-# Misc
-####################################
-*.log
-*.tmp
-*.swp
+.idea/
+.idea/

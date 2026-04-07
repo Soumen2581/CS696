@@ -26,12 +26,17 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+# macOS system files
 .DS_Store
 
+# Ignore AI workspace files
+.ai/
+
+# Node.js
 node_modules
-.env
-.DS_Store
 
-.idea/
+# Environment files
+.env
+
+# IDE/workspace files
 .idea/
